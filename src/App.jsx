@@ -25,30 +25,76 @@ function App() {
     console.log("task deleted");
   };
 
+  //toggle completed task
+  const toggleComplete = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  //date
+  const date = new Date();
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   return (
     <div className="app">
       <div className="container">
         <h1>
-          {" "}
           <GiHornedHelm /> PowerList
         </h1>
-
+        <div className="date">
+          <p>{days[date.getDay()]}</p>
+          <p>{date.getDate()}</p>
+          <p>{months[date.getMonth()]}</p>
+          <p>{date.getFullYear()}</p>
+        </div>
         <form onSubmit={handleSubmit}>
-          <AiOutlinePlus />
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter a task"
-            type="text"
-          />
+          <div className="form-input">
+            <AiOutlinePlus className="icon" />
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter a task"
+              type="text"
+            />
+          </div>
         </form>
         <div>
           {tasks.map((task) => (
-            <div key={task.id}>
-              <p>
-                {task.text}
-                <button onClick={() => deleteTask(task.id)}>delete</button>
-              </p>
+            <div
+              className="task-row"
+              key={task.id}
+              onDoubleClick={() => toggleComplete(task.id)}
+            >
+              <p>{task.text}</p>
+              <AiOutlineClose
+                className="icon"
+                onClick={() => deleteTask(task.id)}
+              />
             </div>
           ))}
         </div>
