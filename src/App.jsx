@@ -86,7 +86,7 @@ function App() {
         <div>
           {tasks.map((task) => (
             <div
-              className="task-row"
+              className={`task-row ${task.completed ? "completed" : ""}`}
               key={task.id}
               onDoubleClick={() => toggleComplete(task.id)}
             >
@@ -98,6 +98,9 @@ function App() {
             </div>
           ))}
         </div>
+        <p className="length">
+          {tasks < 1 ? "You do not have any tasks" : `Tasks: ${tasks.length}`}
+        </p>
       </div>
     </div>
   );
